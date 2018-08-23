@@ -1,0 +1,41 @@
+int buttonPin1 = 11; //Start buton 
+int buttonPin2 = 12; //Stop buton
+int ledPin = 10; int buttonStatus1 = 0; 
+int ledPin2 = 9; int buttonStatus2 = 1; 
+
+
+void setup() { 
+pinMode(ledPin, OUTPUT); 
+pinMode(ledPin2, OUTPUT); 
+pinMode(buttonPin1, INPUT); 
+pinMode(buttonPin2, INPUT); 
+}
+
+void loop() { 
+buttonStatus1 = digitalRead(buttonPin1); 
+buttonStatus2 = digitalRead(buttonPin2);
+  long duration, inches, cm;
+   
+
+
+
+if (buttonStatus1 == HIGH && buttonStatus2 == LOW) // Eğer Start butonu aktif, Stop butonu pasif ise YEŞİL LED yak
+{ digitalWrite(ledPin, HIGH); }
+
+
+if (buttonStatus1 == LOW && buttonStatus2 == HIGH) // Eğer Start butonu pasif, Stop butonu aktif ise YEŞİL LED kapat
+{digitalWrite (ledPin, LOW); }
+
+
+
+
+if (buttonStatus2 == LOW && buttonStatus1 == HIGH) // Eğer Stop butonu pasif, Start butonu aktif ise KIRMIZI LED kapat
+{ digitalWrite(ledPin2, LOW); }
+
+
+if (buttonStatus2 == HIGH && buttonStatus1 == LOW) // Eğer Stop butonu aktif, Start butonu pasif ise KIRMIZI LED yak
+{digitalWrite (ledPin2, HIGH); }
+
+
+
+}
