@@ -1,0 +1,75 @@
+#define TRIG 7
+#define ECHO 6
+#define BUZZ 8
+const int sensor_pin = A0;
+const int y_led = 4;
+const int k_led = 3;
+
+
+int sensor_deger =0;
+float voltaj_deger = 0;
+float sicaklik_deger = 0;
+
+void setup()
+{
+  pinMode(k_led , OUTPUT);
+  pinMode(y_led , OUTPUT);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  pinMode(BUZZ, OUTPUT);
+  Serial.begin(9600);
+ 
+}
+
+void loop()
+{
+sensor_deger = analogRead(sensor_pin);
+  voltaj_deger = (sensor_deger / 1023.0 ) * 5000 ;
+  sicaklik_deger = voltaj_deger / 10.0 ;
+  Serial.print("sicaklik = ");
+  Serial.print(sicaklik_deger);
+  Serial.println(" derece ");
+  delay(2000);
+  
+  if(sicaklik_deger >= 31) // Derece 35'i geçerse yeşil ledi yak
+  {
+    digitalWrite(k_led , HIGH); // Kırmızı led söndür
+    digitalWrite(y_led , LOW); // Yeşil led yak
+  }
+  else if(sicaklik_deger < 30 && sicaklik_deger >= 0) //30 derecenin altında kırmızı ledi yak
+  {
+    digitalWrite(k_led , LOW); // Kırmızı led yak
+    digitalWrite(y_led , HIGH); // Yeşil led söndür
+  }
+  long duration, inches, cm;
+   
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2); 
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+   
+  duration = pulseIn(ECHO, HIGH);
+  cm = (duration * 0.034) / 2;
+   
+  Serial.print(cm);
+  Serial.print("cm");
+  Serial.println();
+    delay(1000);
+if (cm<11); {
+digitalWrite (BUZZ, HIGH);
+}
+
+
+if (cm>2000); {
+digitalWrite (BUZZ, HIGH);
+}
+
+  if(cm < 11){ // Eğer mesafe 10cm'e düşerse buzzer çalışsın
+    digitalWrite(BUZZ, HIGH); // Buzzer aktif
+  }else{
+    digitalWrite(BUZZ, LOW); // Buzzer pasif
+  }
+   
+
+}
